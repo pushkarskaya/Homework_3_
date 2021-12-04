@@ -36,7 +36,7 @@ public class TestWireMock {
 
     @BeforeAll
     public static void beforeAll() {
-        wireMockServer.start();
+        wireMockServer.start(); //Запуск сервера
         configureFor(HOST, PORT);
 
         MappingBuilder getUserScore = get(urlMatching("/user/get/2"));
@@ -57,18 +57,18 @@ public class TestWireMock {
                 .withHeader("Content-Type","application/json")
                 .withBody(jsonUserAll);
 
-        stubFor(getUserScore.willReturn(responseGetUserScore));
-        stubFor(getUserCources.willReturn(responseGetUserCources));
-        stubFor(getUserAll.willReturn(responseGetUserAll));
+        stubFor(getUserScore.willReturn(responseGetUserScore));//Заглушка получение оценки
+        stubFor(getUserCources.willReturn(responseGetUserCources));//Заглушка Получение списка курсов
+        stubFor(getUserAll.willReturn(responseGetUserAll));//Получение списка пользователей
     }
 
     @AfterAll
     public static void afterAll() {
         wireMockServer.stop();
-    }
+    } //Остановка сервера
 
     @Test
-    @DisplayName("Get user sore by id /user/get/{ID}")
+    @DisplayName("Get user sсore by id /user/get/{ID}")//получение оценки
     void testUserScore() {
         String getUserUrl = "/user/get/" + 2;
 
@@ -85,7 +85,7 @@ public class TestWireMock {
     }
 
     @Test
-    @DisplayName("Get cources all /cource/get/all")
+    @DisplayName("Get cources all /cource/get/all")//Получение списка курсов
     void testUserCources() {
         String getUserUrl = "/cource/get/all";
         RestAssured.
@@ -102,7 +102,7 @@ public class TestWireMock {
     }
 
     @Test
-    @DisplayName("Get user all /user/get/all")
+    @DisplayName("Get user all /user/get/all")//Получение списка пользователей
     void testUserAll() {
         String getUserUrl = "/user/get/all";
         RestAssured.
